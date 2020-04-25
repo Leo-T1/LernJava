@@ -28,10 +28,13 @@ public class Main extends Application {
 			
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.initStyle(StageStyle.TRANSPARENT);
+			primaryStage.setFullScreen(false);
 			primaryStage.show();
 			
 			Stage secoundStage = new Stage();
 			secoundStage.setScene(scene2);
+			
 			secoundStage.show();
 			
 		}catch(Exception e) {
