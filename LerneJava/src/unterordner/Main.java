@@ -19,23 +19,19 @@ public class Main extends Application {
 		try {
 			System.out.println("Start Methode");
 			VBox root = new VBox();
-			VBox root2 = new VBox();
+			Label text = new Label("Das ist ein Label");
+			Label text2 = new Label("Ich bin ein weiteres Label");
 			
-			Label text = new Label("Hello World");
 			root.getChildren().add(text);
-			Scene scene = new Scene(root,400,400);
-			Scene scene2 = new Scene(root2,200,200);
+			root.getChildren().add(text2);
 			
+			Scene scene = new Scene(root,400,400);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setFullScreen(false);
+			primaryStage.setResizable(false);
+			primaryStage.setTitle("Unser JavaFX Fenster");
 			primaryStage.show();
-			
-			Stage secoundStage = new Stage();
-			secoundStage.setScene(scene2);
-			
-			secoundStage.show();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
