@@ -1,10 +1,11 @@
 package unterordner;
 
 import javafx.application.Application;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -21,6 +22,16 @@ public class Main extends Application {
 		StringProperty completlyfileName = new SimpleStringProperty();
 		
 		completlyfileName.bind(Bindings.concat(fileName,fileSuffix));
+		
+		completlyfileName.addListener(new ChangeListener<String>() {
+			
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
+				System.out.println("Alt: "+oldVal);
+				System.out.println("New: "+newVal);
+			}
+			
+		});
 		
 		System.out.println(completlyfileName.getValue());
 		fileName.set("secound");
