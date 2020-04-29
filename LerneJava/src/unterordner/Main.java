@@ -9,9 +9,12 @@ import javafx.scene.layout.*;
 
 public class Main extends Application {
 	public static void main(String[] args) {
-		System.out.println("Vor Launch");
-		launch(args);
-		System.out.println("Nach Launch");
+		//System.out.println("Vor Launch");
+		//launch(args);
+		//System.out.println("Nach Launch");
+		System.out.println(MysteryClass.mysteryMethod(10, 20));
+		System.out.println(MysteryClass.mysteryMethod(10, 10));
+		System.out.println(MysteryClass.mysteryMethod(15, 15));
 	}
 	
 	@Override
