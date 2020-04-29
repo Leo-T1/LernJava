@@ -24,8 +24,8 @@ public class Main extends Application {
 		StringProperty completlyfileName = new SimpleStringProperty();
 		
 		completlyfileName.bind(Bindings.concat(fileName,fileSuffix));
-		/*
-		completlyfileName.addListener(new ChangeListener<String>() {
+		
+		fileName.addListener(new ChangeListener<String>() {
 			
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
@@ -34,7 +34,7 @@ public class Main extends Application {
 			}
 			
 		});
-		*/
+		
 		
 		fileName.addListener(new InvalidationListener() {
 
