@@ -23,10 +23,8 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Unser JavaFX Fenster");
-			Label text = new Label("Breite: "+scene.getWidth());
-			Label text2 = new Label("Breite: "+root.getWidth());
+			Label text = new Label("Hallo");
 			root.getChildren().add(text);
-			root.getChildren().add(text2);
 			primaryStage.show();
 			
 		}catch(Exception e) {
