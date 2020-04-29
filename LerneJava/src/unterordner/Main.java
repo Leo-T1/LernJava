@@ -5,6 +5,7 @@ import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 
 public class Main extends Application {
@@ -24,13 +25,13 @@ public class Main extends Application {
 			
 			root.getChildren().add(text);
 			root.getChildren().add(text2);
-			
+			root.setStyle("-fx-background-color: transparent");
 			Scene scene = new Scene(root,400,400);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			scene.setFill(Color.LIGHTBLUE);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setFullScreen(false);
-			primaryStage.setResizable(false);
 			primaryStage.setTitle("Unser JavaFX Fenster");
+			
 			primaryStage.show();
 			
 		}catch(Exception e) {
