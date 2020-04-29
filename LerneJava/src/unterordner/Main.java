@@ -30,23 +30,22 @@ public class Main extends Application {
 			
 			Scene scene = new Scene(root,300,300);
 			Scene scene2 = new Scene(root2,400,300);
+			EventHandler<MouseEvent> changeSzene = new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					if(primaryStage.getScene()==scene) {
+						primaryStage.setScene(scene2);
+					}else {
+						primaryStage.setScene(scene);
+					}
+				}
+				
+			};
+			button.setOnMouseClicked(changeSzene);
+			button1.setOnMouseClicked(changeSzene);
 			
-			button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					primaryStage.setScene(scene2);
-				}
-				
-			});
-			button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					primaryStage.setScene(scene);
-				}
-				
-			});
+			
 			root.getChildren().add(label);
 			root.getChildren().add(button);
 			
