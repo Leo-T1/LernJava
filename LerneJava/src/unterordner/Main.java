@@ -19,24 +19,40 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			VBox root = new VBox();
+			VBox root2 = new VBox();
 			
-			Button button = new Button("Klicke für Geheimnis");
-			Label label = new Label("Geheimnis");
-			label.setVisible(false);
+			Button button = new Button("Hier klicken um für Szene 2");
+			Button button1 = new Button("Hier klicken um für Szene 1");
+			
+			Label label = new Label("Willkommen zu Szene 1");
+			Label label1 = new Label("Willkommen zu Szene 2");
+			
+			
+			Scene scene = new Scene(root,300,300);
+			Scene scene2 = new Scene(root2,400,300);
+			
 			button.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
 				public void handle(MouseEvent arg0) {
-					label.setVisible(true);;
-					
+					primaryStage.setScene(scene2);
 				}
 				
 			});
-			root.getChildren().add(button);
+			button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					primaryStage.setScene(scene);
+				}
+				
+			});
 			root.getChildren().add(label);
+			root.getChildren().add(button);
 			
+			root2.getChildren().add(label1);
+			root2.getChildren().add(button1);
 			
-			Scene scene = new Scene(root,300,300);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
