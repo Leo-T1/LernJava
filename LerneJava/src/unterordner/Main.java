@@ -1,6 +1,8 @@
 package unterordner;
 
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -22,7 +24,7 @@ public class Main extends Application {
 		StringProperty completlyfileName = new SimpleStringProperty();
 		
 		completlyfileName.bind(Bindings.concat(fileName,fileSuffix));
-		
+		/*
 		completlyfileName.addListener(new ChangeListener<String>() {
 			
 			@Override
@@ -32,9 +34,22 @@ public class Main extends Application {
 			}
 			
 		});
+		*/
+		
+		fileName.addListener(new InvalidationListener() {
+
+			@Override
+			public void invalidated(Observable observable) {
+				System.out.println("Wert nun invalide");
+				
+			}
+			
+		});
 		
 		System.out.println(completlyfileName.getValue());
 		fileName.set("secound");
+		fileName.set("third");
+		
 		System.out.println(completlyfileName.getValue());
 		fileSuffix.set(".zip");
 		System.out.println(completlyfileName.getValue());
