@@ -5,7 +5,6 @@ import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 
 public class Main extends Application {
@@ -20,18 +19,14 @@ public class Main extends Application {
 		try {
 			System.out.println("Start Methode");
 			VBox root = new VBox();
-			Label text = new Label("Das ist ein Label");
-			Label text2 = new Label("Ich bin ein weiteres Label");
-			
-			root.getChildren().add(text);
-			root.getChildren().add(text2);
-			root.setStyle("-fx-background-color: transparent");
-			Scene scene = new Scene(root,400,400);
-			scene.setFill(Color.LIGHTBLUE);
+			Scene scene = new Scene(root,300,300);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Unser JavaFX Fenster");
-			
+			Label text = new Label("Breite: "+scene.getWidth());
+			Label text2 = new Label("Breite: "+root.getWidth());
+			root.getChildren().add(text);
+			root.getChildren().add(text2);
 			primaryStage.show();
 			
 		}catch(Exception e) {
