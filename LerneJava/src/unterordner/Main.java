@@ -1,6 +1,10 @@
 package unterordner;
 
 import javafx.application.Application;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -12,9 +16,18 @@ public class Main extends Application {
 		//System.out.println("Vor Launch");
 		//launch(args);
 		//System.out.println("Nach Launch");
-		System.out.println(MysteryClass.mysteryMethod(10, 20));
-		System.out.println(MysteryClass.mysteryMethod(10, 10));
-		System.out.println(MysteryClass.mysteryMethod(15, 15));
+		StringProperty fileName = new SimpleStringProperty("first");
+		StringProperty fileSuffix = new SimpleStringProperty(".txt");
+		StringProperty completlyfileName = new SimpleStringProperty();
+		
+		completlyfileName.bind(Bindings.concat(fileName,fileSuffix));
+		
+		System.out.println(completlyfileName.getValue());
+		fileName.set("secound");
+		System.out.println(completlyfileName.getValue());
+		fileSuffix.set(".zip");
+		System.out.println(completlyfileName.getValue());
+		
 	}
 	
 	@Override
