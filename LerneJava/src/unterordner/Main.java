@@ -20,38 +20,20 @@ public class Main extends Application {
 		try {
 			VBox root = new VBox();
 			
-			Label label = new Label("Hallo dies ist ein viel viel viel viel viel viel viel viel viel viel zu langes label");
+			Button button = new Button("Klicke für Geheimnis");
+			Label label = new Label("Geheimnis");
+			label.setVisible(false);
+			button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					label.setVisible(true);;
+					
+				}
+				
+			});
+			root.getChildren().add(button);
 			root.getChildren().add(label);
-			//label.setRotate(180);
-			//label.setUnderline(true);
-			//label.setTextFill(Color.BROWN);
-			label.setWrapText(true);
-			label.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					label.setUnderline(true);
-				}
-				
-			});
-			label.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					label.setUnderline(false);
-				}
-				
-			});
-			
-			label.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					rotate+=10;
-					label.setRotate(rotate);
-				}
-				
-			});
 			
 			
 			Scene scene = new Scene(root,300,300);
