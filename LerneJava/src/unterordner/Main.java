@@ -20,26 +20,36 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			VBox root = new VBox();
-			Scene scene = new Scene(root,300,300);
+			Scene scene = new Scene(root,400,300);
+			Label titleLabel = new Label("Bitte schreibe eine Bewerbung:");
+			Label endLabel = new Label("");
 			TextArea areaField = new TextArea();
-			areaField.setPrefHeight(200);
-			areaField.setText("Handrik ist der Dozenz von diesem Kurs, denn er programmiert abscheinend sehr gerne. Er freut sich anscheinend das ich bei ihm zugucke.");
+			areaField.setPrefHeight(150);
+			areaField.setText("Hallo, das ist meine Bewerbung...");
 			areaField.setWrapText(true);
-			Button sendButton = new Button("Abschicken");
+			Button sendButton = new Button("Jetzt Abschicken");
 			sendButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					System.out.println(areaField.getText());
+					String text = areaField.getText();
+					int laenge = text.length();
+					if(laenge>10 && laenge<50) {
+						endLabel.setText("Deine Bewerbung befindet sich in Bearbeitung.");
+					}else if(laenge==0) {
+						endLabel.setText("Ein leeres Dokument kann nicht abgeschickt werden.");
+					}else if(laenge<10 || laenge>50) {
+						endLabel.setText("Momentan können wir leider keine neuen Bewerbungen mehr annehmen.");
+					}
 				}
 				
 			});
 			
-			root.getChildren().addAll(areaField,sendButton);
+			root.getChildren().addAll(titleLabel,areaField,sendButton,endLabel);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Unser JavaFX Fenster");
+			primaryStage.setTitle("-");
 			
 			primaryStage.show();
 			
