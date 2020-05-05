@@ -1,6 +1,7 @@
 package unterordner;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.*;
 import javafx.scene.*;
@@ -19,39 +20,34 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			VBox root = new VBox();
-			VBox root2 = new VBox();
-			
-			Button button = new Button("Hier klicken um für Szene 2");
-			Button button1 = new Button("Hier klicken um für Szene 1");
-			
-			Label label = new Label("Willkommen zu Szene 1");
-			Label label1 = new Label("Willkommen zu Szene 2");
-			
-			
 			Scene scene = new Scene(root,300,300);
-			Scene scene2 = new Scene(root2,400,300);
-			EventHandler<MouseEvent> changeSzene = new EventHandler<MouseEvent>() {
+			
+			Label labelAge = new Label("Dein Alter:");
+			TextField ageField = new TextField();
+			ageField.setPromptText("Alter:");
+			Button sendButton = new Button("Absenden");
+			sendButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
-				public void handle(MouseEvent arg0) {
-					if(primaryStage.getScene()==scene) {
-						primaryStage.setScene(scene2);
+				public void handle(ActionEvent arg0) {
+					if(validateInt(ageField.getText())) {
+						//System.out.println(ageField.getText());
+						ageField.setPromptText(ageField.getText());
+						ageField.clear();
 					}else {
-						primaryStage.setScene(scene);
+						ageField.setPromptText("ungültige Eingabe!");
+						ageField.clear();
 					}
 				}
 				
-			};
-			button.setOnMouseClicked(changeSzene);
-			button1.setOnMouseClicked(changeSzene);
+			});
 			
 			
-			root.getChildren().add(label);
-			root.getChildren().add(button);
 			
-			root2.getChildren().add(label1);
-			root2.getChildren().add(button1);
+
 			
+
+			root.getChildren().addAll(labelAge,ageField,sendButton);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -71,6 +67,19 @@ public class Main extends Application {
 	@Override
 	public void stop() throws Exception {
 		
+	}
+	public boolean validateInt(String input) {
+		
+		try {
+			int output = Integer.parseInt(input);
+			return true;
+		} catch (Exception e) {
+			//System.out.println("ungültige Eingabe!");
+			return false;
+		}
+	}
+	public boolean validateInt(int input) {
+		return true;
 	}
 	
 }
