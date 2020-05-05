@@ -1,18 +1,18 @@
 package unterordner;
 
+import java.awt.Color;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+
 
 
 public class Main extends Application {
-	int rotate = 0;
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -22,32 +22,33 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,300,300);
 			
-			Label labelAge = new Label("Dein Alter:");
-			TextField ageField = new TextField();
-			ageField.setPromptText("Alter:");
+			Label labelAge = new Label("Dein Passwort:");
+			PasswordField ageField = new PasswordField();
+			Label labelAge2 = new Label("Dein Passwort wiederholen:");
+			PasswordField ageField2 = new PasswordField();
+			
 			Button sendButton = new Button("Absenden");
 			sendButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					if(validateInt(ageField.getText())) {
-						//System.out.println(ageField.getText());
-						ageField.setPromptText(ageField.getText());
-						ageField.clear();
+					if(ageField.getText().equals(ageField2.getText())) {
+						sendButton.setStyle("-fx-background-color: green; ");
 					}else {
-						ageField.setPromptText("ungültige Eingabe!");
-						ageField.clear();
+						sendButton.setStyle("-fx-background-color: red; ");
 					}
+					//System.out.println(ageField.getText());
+					//System.out.println(ageField2.getText());
+					ageField.clear();
+					ageField2.clear();
+					
 				}
 				
 			});
 			
 			
-			
 
-			
-
-			root.getChildren().addAll(labelAge,ageField,sendButton);
+			root.getChildren().addAll(labelAge,ageField,labelAge2,ageField2,sendButton);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -67,19 +68,6 @@ public class Main extends Application {
 	@Override
 	public void stop() throws Exception {
 		
-	}
-	public boolean validateInt(String input) {
-		
-		try {
-			int output = Integer.parseInt(input);
-			return true;
-		} catch (Exception e) {
-			//System.out.println("ungültige Eingabe!");
-			return false;
-		}
-	}
-	public boolean validateInt(int input) {
-		return true;
 	}
 	
 }
