@@ -16,7 +16,15 @@
 	tb2.setToggleGroup(tgroup);
 	tb3.setToggleGroup(tgroup);
 }
-
+{
+	Button.setOnAction(new EventHandler<ActionEvent>(){
+		@Override
+		public void handle(ActionEvent arg0) {
+				
+		}
+				
+	});
+}
 
 
 
