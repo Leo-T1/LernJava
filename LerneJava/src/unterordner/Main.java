@@ -2,6 +2,7 @@ package unterordner;
 
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.*;
@@ -21,31 +22,23 @@ public class Main extends Application {
 		try {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
-			Label titleLabel = new Label("Bitte schreibe eine Bewerbung:");
-			Label endLabel = new Label("");
+			Label endLabel = new Label("Data:");
+			Label cb1Label = new Label();
+			Label cb2Label = new Label();
+			Label cb3Label = new Label();
 			
-			CheckBox cb1 = new CheckBox("Check 1");
-			CheckBox cb2 = new CheckBox("Check 2");
-			CheckBox cb3 = new CheckBox("Check 3");
+			CheckBox cb1 = new CheckBox("schwarz");
+			CheckBox cb2 = new CheckBox("rot");
+			CheckBox cb3 = new CheckBox("gelb");
+			cb1.setSelected(true);
+			cb1Label.textProperty().bind(Bindings.concat("CheckBox1:",cb1.selectedProperty()));
+			cb2Label.textProperty().bind(Bindings.concat("CheckBox2:",cb2.selectedProperty()));
+			cb3Label.textProperty().bind(Bindings.concat("CheckBox3:",cb3.selectedProperty()));
 			
 			
 			
-			Button sendButton = new Button("Jetzt Abschicken");
-			sendButton.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent arg0) {
-					String text1 = cb1.getText()+": "+cb1.isSelected();
-					String text2 = cb2.getText()+": "+cb2.isSelected();
-					String text3 = cb3.getText()+": "+cb3.isSelected();
-					
-					endLabel.setText("Send\n"+text1+"\n"+text2+"\n"+text3);
-					
-				}
-				
-			});
 			
-			root.getChildren().addAll(titleLabel,cb1,cb2,cb3,sendButton,endLabel);
+			root.getChildren().addAll(cb1,cb2,cb3,endLabel,cb1Label,cb2Label,cb3Label);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
