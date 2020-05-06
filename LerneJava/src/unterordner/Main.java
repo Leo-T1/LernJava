@@ -23,29 +23,29 @@ public class Main extends Application {
 			Scene scene = new Scene(root,400,300);
 			Label titleLabel = new Label("Bitte schreibe eine Bewerbung:");
 			Label endLabel = new Label("");
-			TextArea areaField = new TextArea();
-			areaField.setPrefHeight(150);
-			areaField.setText("Hallo, das ist meine Bewerbung...");
-			areaField.setWrapText(true);
+			
+			CheckBox cb1 = new CheckBox("Check 1");
+			CheckBox cb2 = new CheckBox("Check 2");
+			CheckBox cb3 = new CheckBox("Check 3");
+			
+			
+			
 			Button sendButton = new Button("Jetzt Abschicken");
 			sendButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					String text = areaField.getText();
-					int laenge = text.length();
-					if(laenge>10 && laenge<50) {
-						endLabel.setText("Deine Bewerbung befindet sich in Bearbeitung.");
-					}else if(laenge==0) {
-						endLabel.setText("Ein leeres Dokument kann nicht abgeschickt werden.");
-					}else if(laenge<10 || laenge>50) {
-						endLabel.setText("Momentan können wir leider keine neuen Bewerbungen mehr annehmen.");
-					}
+					String text1 = cb1.getText()+": "+cb1.isSelected();
+					String text2 = cb2.getText()+": "+cb2.isSelected();
+					String text3 = cb3.getText()+": "+cb3.isSelected();
+					
+					endLabel.setText("Send\n"+text1+"\n"+text2+"\n"+text3);
+					
 				}
 				
 			});
 			
-			root.getChildren().addAll(titleLabel,areaField,sendButton,endLabel);
+			root.getChildren().addAll(titleLabel,cb1,cb2,cb3,sendButton,endLabel);
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
