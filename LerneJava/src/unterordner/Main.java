@@ -67,7 +67,6 @@ public class Main extends Application {
 	public ToggleGroup addQuestion(VBox ShowOn,String question,String answer1,String answer2,String answer3) {
 		Label frage = new Label(question);
 		ToggleGroup tgroup = new ToggleGroup();
-		
 		RadioButton rb1 = new RadioButton(answer1);
 		RadioButton rb2 = new RadioButton(answer2);
 		RadioButton rb3 = new RadioButton(answer3);
@@ -75,7 +74,6 @@ public class Main extends Application {
 		rb2.setToggleGroup(tgroup);
 		rb3.setToggleGroup(tgroup);
 		ShowOn.getChildren().addAll(frage,rb1,rb2,rb3);
-		
 		return tgroup;
 	}
 	public String getAnswer(ToggleGroup group) {
