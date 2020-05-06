@@ -22,24 +22,15 @@ public class Main extends Application {
 		try {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
-			Label endLabel = new Label("Data:");
-			Label cb1Label = new Label();
-			Label cb2Label = new Label();
-			Label cb3Label = new Label();
+			ToggleGroup tgroup = new ToggleGroup();
+			ToggleButton tb1 = new ToggleButton("Button1");
+			ToggleButton tb2 = new ToggleButton("Button1");
+			ToggleButton tb3 = new ToggleButton("Button1");
+			tb1.setToggleGroup(tgroup);
+			tb2.setToggleGroup(tgroup);
+			tb3.setToggleGroup(tgroup);
 			
-			CheckBox cb1 = new CheckBox("schwarz");
-			CheckBox cb2 = new CheckBox("rot");
-			CheckBox cb3 = new CheckBox("gelb");
-			cb1.setSelected(true);
-			cb1Label.textProperty().bind(Bindings.concat("CheckBox1:",cb1.selectedProperty()));
-			cb2Label.textProperty().bind(Bindings.concat("CheckBox2:",cb2.selectedProperty()));
-			cb3Label.textProperty().bind(Bindings.concat("CheckBox3:",cb3.selectedProperty()));
-			
-			
-			
-			
-			root.getChildren().addAll(cb1,cb2,cb3,endLabel,cb1Label,cb2Label,cb3Label);
-			
+			root.getChildren().addAll(tb1,tb2,tb3);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");

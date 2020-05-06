@@ -1,0 +1,26 @@
+{
+	label.textProperty().bind(Bindings.concat("CheckBox1:",CheckBox.selectedProperty()));
+}
+{
+	root.getChildren().addAll(label,button,checkbox,textarea,textfield);
+}
+{
+	scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+}
+{ 
+	ToggleGroup tgroup = new ToggleGroup();
+	ToggleButton tb1 = new ToggleButton("Button1");
+	ToggleButton tb2 = new ToggleButton("Button1");
+	ToggleButton tb3 = new ToggleButton("Button1");
+	tb1.setToggleGroup(tgroup);
+	tb2.setToggleGroup(tgroup);
+	tb3.setToggleGroup(tgroup);
+}
+
+
+
+
+
+
+
+
