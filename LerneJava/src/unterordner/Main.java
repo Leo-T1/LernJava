@@ -23,9 +23,10 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			ToggleGroup tgroup = new ToggleGroup();
-			ToggleButton tb1 = new ToggleButton("Button1");
-			ToggleButton tb2 = new ToggleButton("Button1");
-			ToggleButton tb3 = new ToggleButton("Button1");
+			RadioButton tb1 = new RadioButton("RadioButton1");
+			RadioButton tb2 = new RadioButton("RadioButton2");
+			RadioButton tb3 = new RadioButton("RadioButton3");
+			tb1.setSelected(true);
 			tb1.setToggleGroup(tgroup);
 			tb2.setToggleGroup(tgroup);
 			tb3.setToggleGroup(tgroup);
