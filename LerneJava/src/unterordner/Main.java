@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 
 @SuppressWarnings("unused")
 public class Main extends Application {
+	public int degree = 0;
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -25,18 +26,24 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			ChoiceBox<String> cb = new ChoiceBox<>(FXCollections.observableArrayList("1","2","3","4","5","6","7"));
-			cb.getSelectionModel().select(0);
+			ComboBox<String> cb = new ComboBox<>(FXCollections.observableArrayList("Hendrik","Peter","Franz","Kai","Marc","Leo"));
+			Button button = new Button("Ein Button");
+			Label label = new Label("Der Name ist:");
+			cb.setPromptText("Wähle einen Namen");
+			cb.setEditable(true);
 			cb.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					System.out.println(cb);
-					
+					degree+=180;
+					button.setRotate(degree);
+					label.setText("Der Name ist: "+cb.getValue());
 				}
 				
 			});
-			root.getChildren().addAll(cb);
+			
+			
+			root.getChildren().addAll(button,cb,label);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
