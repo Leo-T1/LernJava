@@ -30,21 +30,12 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			Label label = new Label("Das ist ein Label");
-			ScrollBar sb = new ScrollBar();
-			sb.setMin(-100);
-			sb.setMax(300);
-			sb.valueProperty().addListener(new ChangeListener<Number>() {
+			TextArea ta = new TextArea();
+			ScrollPane sp = new ScrollPane();
+			sp.setContent(ta);
+			
 
-				@Override
-				public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number newValue) {
-					label.setText(""+newValue);
-					
-				}
-				
-			});
-
-			root.getChildren().addAll(label,sb);
+			root.getChildren().addAll(sp);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
