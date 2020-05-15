@@ -1,6 +1,8 @@
 package unterordner;
 
 
+
+
 import javax.swing.event.ChangeEvent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 
 
@@ -30,12 +33,24 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			TextArea ta = new TextArea();
-			ScrollPane sp = new ScrollPane();
-			sp.setContent(ta);
+			Slider slid = new Slider();
+			Label lab = new Label("Hey");
+			slid.setMin(0);
+			slid.setMax(200);
+			slid.setValue(20);
+			slid.setShowTickLabels(true);
+			slid.setShowTickMarks(true);
 			
+			slid.valueProperty().addListener(new ChangeListener<Number>(){
 
-			root.getChildren().addAll(sp);
+				@Override
+				public void changed(ObservableValue<? extends Number> arg0, Number oldVal, Number newVal) {
+					lab.setFont(new Font(newVal.doubleValue()));
+				}
+				
+			});
+
+			root.getChildren().addAll(slid,lab);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
