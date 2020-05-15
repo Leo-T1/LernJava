@@ -33,26 +33,17 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			Slider slid = new Slider();
-			slid.setMin(10);
-			slid.setMax(30);
-			slid.setValue(15);
-			slid.setShowTickLabels(true);
-			slid.setShowTickMarks(true);
-			Label lab = new Label("Verändere über den Slider meine Schriftgröße");
-			Label lab2 = new Label("");
-			lab2.setText("Aktuelle Schriftgröße: "+Math.round(slid.getValue()));
-			slid.valueProperty().addListener(new ChangeListener<Number>(){
+			ProgressBar pb = new ProgressBar();
+			ProgressIndicator pi = new ProgressIndicator();
+			Slider sd = new Slider();
+			sd.setMin(-1);
+			sd.setMax(1);
+			pb.progressProperty().bind(sd.valueProperty());
+			
+			
+			
 
-				@Override
-				public void changed(ObservableValue<? extends Number> arg0, Number oldVal, Number newVal) {
-					lab.setFont(new Font(newVal.doubleValue()));
-					lab2.setText("Aktuelle Schriftgröße: "+Math.round(slid.getValue()));
-				}
-				
-			});
-
-			root.getChildren().addAll(lab,slid,lab2);
+			root.getChildren().addAll(pb,pi,sd);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
