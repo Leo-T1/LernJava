@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 
 
 
+@SuppressWarnings("unused")
 public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
@@ -26,6 +27,15 @@ public class Main extends Application {
 			
 			ChoiceBox<String> cb = new ChoiceBox<>(FXCollections.observableArrayList("1","2","3","4","5","6","7"));
 			cb.getSelectionModel().select(0);
+			cb.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					System.out.println(cb);
+					
+				}
+				
+			});
 			root.getChildren().addAll(cb);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
