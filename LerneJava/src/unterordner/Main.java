@@ -7,8 +7,10 @@ import javax.swing.event.ChangeEvent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.*;
@@ -33,17 +35,27 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			ProgressBar pb = new ProgressBar();
-			ProgressIndicator pi = new ProgressIndicator();
-			Slider sd = new Slider();
-			sd.setMin(-1);
-			sd.setMax(1);
-			pb.progressProperty().bind(sd.valueProperty());
-			
-			
-			
+			ListView<String> list = new ListView<String>();
+			Button send = new Button("Send");
+			list.getItems().addAll("1","2","3","4");
+			list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-			root.getChildren().addAll(pb,pi,sd);
+			send.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					String msg = "";
+					ObservableList<String> list2 = list.getSelectionModel().getSelectedItems();
+					for(String element : list2) {
+						msg += element+"|";
+					}
+					System.out.println(msg);
+				}
+				
+			});
+			
+			
+			root.getChildren().addAll(list,send);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
