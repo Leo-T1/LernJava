@@ -1,6 +1,9 @@
 package unterordner;
 
 
+import javax.swing.event.ChangeEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -9,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -26,46 +30,21 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			Label bf = new Label("Bewerbungsformular:");
-			TextField nameField = new TextField();
-			nameField.setPromptText("Gebe deinen vollständigen Namen ein");
-			ComboBox<String> gesc1 = new ComboBox<>(FXCollections.observableArrayList("Männlich","Weiblich","Anders"));
-			ComboBox<String> age1 = new ComboBox<>(FXCollections.observableArrayList("10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"));
-			TextField wordField = new TextField();
-			wordField.setPromptText("Beschreibe dich mit einem Wort");
-			Button sendData = new Button("Daten jetzt abschicken");
-			gesc1.setPromptText("Wähle dein Geschlecht");
-			age1.setPromptText("Wähle dein Alter");
-			
-			sendData.setOnAction(new EventHandler<ActionEvent>() {
+			Label label = new Label("Das ist ein Label");
+			ScrollBar sb = new ScrollBar();
+			sb.setMin(-100);
+			sb.setMax(300);
+			sb.valueProperty().addListener(new ChangeListener<Number>() {
 
 				@Override
-				public void handle(ActionEvent arg0) {
-					int points = 0;
-					if(gesc1.getValue().equals("Weiblich")) {
-						points++;
-					}
-					
-					if(Integer.parseInt(age1.getValue())>16) {
-						points++;
-					}
-
-					if(!wordField.getText().toLowerCase().equals("faul")) {
-						points++;
-					}
-					if(points==3) {
-						System.out.println("Diese Bewerberin in Betracht ziehen.");
-					}
-					if(points<3) {
-						System.out.println("Diese Bewerbung aussortieren");
-					}
+				public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number newValue) {
+					label.setText(""+newValue);
 					
 				}
 				
 			});
-			
-			
-			root.getChildren().addAll(bf,nameField,gesc1,age1,wordField,sendData);
+
+			root.getChildren().addAll(label,sb);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
