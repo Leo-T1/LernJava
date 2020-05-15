@@ -34,23 +34,25 @@ public class Main extends Application {
 			Scene scene = new Scene(root,400,300);
 			
 			Slider slid = new Slider();
-			Label lab = new Label("Hey");
-			slid.setMin(0);
-			slid.setMax(200);
-			slid.setValue(20);
+			slid.setMin(10);
+			slid.setMax(30);
+			slid.setValue(15);
 			slid.setShowTickLabels(true);
 			slid.setShowTickMarks(true);
-			
+			Label lab = new Label("Verändere über den Slider meine Schriftgröße");
+			Label lab2 = new Label("");
+			lab2.setText("Aktuelle Schriftgröße: "+Math.round(slid.getValue()));
 			slid.valueProperty().addListener(new ChangeListener<Number>(){
 
 				@Override
 				public void changed(ObservableValue<? extends Number> arg0, Number oldVal, Number newVal) {
 					lab.setFont(new Font(newVal.doubleValue()));
+					lab2.setText("Aktuelle Schriftgröße: "+Math.round(slid.getValue()));
 				}
 				
 			});
 
-			root.getChildren().addAll(slid,lab);
+			root.getChildren().addAll(lab,slid,lab2);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
