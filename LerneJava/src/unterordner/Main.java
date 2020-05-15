@@ -26,24 +26,46 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			ComboBox<String> cb = new ComboBox<>(FXCollections.observableArrayList("Hendrik","Peter","Franz","Kai","Marc","Leo"));
-			Button button = new Button("Ein Button");
-			Label label = new Label("Der Name ist:");
-			cb.setPromptText("Wähle einen Namen");
-			cb.setEditable(true);
-			cb.setOnAction(new EventHandler<ActionEvent>() {
+			Label bf = new Label("Bewerbungsformular:");
+			TextField nameField = new TextField();
+			nameField.setPromptText("Gebe deinen vollständigen Namen ein");
+			ComboBox<String> gesc1 = new ComboBox<>(FXCollections.observableArrayList("Männlich","Weiblich","Anders"));
+			ComboBox<String> age1 = new ComboBox<>(FXCollections.observableArrayList("10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"));
+			TextField wordField = new TextField();
+			wordField.setPromptText("Beschreibe dich mit einem Wort");
+			Button sendData = new Button("Daten jetzt abschicken");
+			gesc1.setPromptText("Wähle dein Geschlecht");
+			age1.setPromptText("Wähle dein Alter");
+			
+			sendData.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					degree+=180;
-					button.setRotate(degree);
-					label.setText("Der Name ist: "+cb.getValue());
+					int points = 0;
+					if(gesc1.getValue().equals("Weiblich")) {
+						points++;
+					}
+					
+					if(Integer.parseInt(age1.getValue())>16) {
+						points++;
+					}
+
+					if(!wordField.getText().toLowerCase().equals("faul")) {
+						points++;
+					}
+					if(points==3) {
+						System.out.println("Diese Bewerberin in Betracht ziehen.");
+					}
+					if(points<3) {
+						System.out.println("Diese Bewerbung aussortieren");
+					}
+					
 				}
 				
 			});
 			
 			
-			root.getChildren().addAll(button,cb,label);
+			root.getChildren().addAll(bf,nameField,gesc1,age1,wordField,sendData);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
