@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
@@ -36,32 +37,18 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			ListView<String> list = new ListView<String>();
-			Button send = new Button("Send");
-			list.getItems().addAll("1","2","3","4","5","6");
-			list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-			list.setPrefHeight(100);
-			list.setEditable(true);
-			list.setCellFactory(TextFieldListCell.forListView());
+			TableView<Car> tv = new TableView<>();
+			TableColumn<Car, String> modelNameC = new TableColumn<>("Moddellnamen");
+			TableColumn<Car, String> brandC = new TableColumn<>("Markenname");
+			TableColumn<Car, Integer> horsePowerC = new TableColumn<>("PS");
+			tv.getColumns().addAll(modelNameC,brandC,horsePowerC);
+			tv.setItems(getAllCars());
+			modelNameC.setCellValueFactory(new PropertyValueFactory<>("modelName"));
+			brandC.setCellValueFactory(new PropertyValueFactory<>("brand"));
+			horsePowerC.setCellValueFactory(new PropertyValueFactory<>("horsePower"));
 			
 			
-			
-			send.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent arg0) {
-					String msg = "";
-					ObservableList<String> list2 = list.getSelectionModel().getSelectedItems();
-					for(String element : list2) {
-						msg += element+"|";
-					}
-					System.out.println(msg);
-				}
-				
-			});
-			
-			
-			root.getChildren().addAll(list,send);
+			root.getChildren().addAll(tv);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
@@ -71,6 +58,16 @@ public class Main extends Application {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ObservableList<Car> getAllCars(){
+		ObservableList<Car> carList = FXCollections.observableArrayList();
+		carList.add(new Car("Ibiza", "Seat", 110));
+		carList.add(new Car("Ibiza1", "Seat1", 120));
+		carList.add(new Car("Ibiza2", "Seat2", 130));
+		carList.add(new Car("Ibiza3", "Seat3", 140));
+		
+		return carList;
 	}
 	
 	@Override
