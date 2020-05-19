@@ -37,17 +37,23 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			TableView<Car> tv = new TableView<>();
-			TableColumn<Car, String> modelNameC = new TableColumn<>("Moddellnamen");
-			TableColumn<Car, String> brandC = new TableColumn<>("Markenname");
-			TableColumn<Car, Integer> horsePowerC = new TableColumn<>("PS");
-			tv.getColumns().addAll(modelNameC,brandC,horsePowerC);
-			tv.setItems(getAllCars());
-			modelNameC.setCellValueFactory(new PropertyValueFactory<>("modelName"));
-			brandC.setCellValueFactory(new PropertyValueFactory<>("brand"));
-			horsePowerC.setCellValueFactory(new PropertyValueFactory<>("horsePower"));
+			
+			TreeItem<String> ti = new TreeItem<>("Anfang");
+			TreeItem<String> ti2 = new TreeItem<>("Unterordner");
+			TreeItem<String> ti3 = new TreeItem<>("Unten");
+			TreeItem<String> ti4 = new TreeItem<>("Auch Unten");
+			
+			TreeItem<String> ti5 = new TreeItem<>("Unterordner2");
+			TreeItem<String> ti6 = new TreeItem<>("Unten2");
+			TreeItem<String> ti7 = new TreeItem<>("Auch Unten2");
 			
 			
+			TreeView<String> tv = new TreeView<>(ti);
+			ti.getChildren().addAll(ti2,ti5);
+			ti2.getChildren().addAll(ti3,ti4);
+			ti5.getChildren().addAll(ti6,ti7);
+			
+			ti.setExpanded(true);
 			root.getChildren().addAll(tv);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
