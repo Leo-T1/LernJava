@@ -31,6 +31,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
@@ -38,22 +39,26 @@ public class Main extends Application {
 			Scene scene = new Scene(root,400,300);
 			
 			
-			TreeItem<String> ti = new TreeItem<>("Anfang");
-			TreeItem<String> ti2 = new TreeItem<>("Unterordner");
-			TreeItem<String> ti3 = new TreeItem<>("Unten");
-			TreeItem<String> ti4 = new TreeItem<>("Auch Unten");
+			TreeItem<String> ti = new TreeItem<>("Tiere");
+			TreeItem<String> ti2 = new TreeItem<>("Vögel");
+			TreeItem<String> ti3 = new TreeItem<>("Amsel");
+			TreeItem<String> ti4 = new TreeItem<>("Blaumeise");
+			TreeItem<String> ti42 = new TreeItem<>("Taube");
 			
-			TreeItem<String> ti5 = new TreeItem<>("Unterordner2");
-			TreeItem<String> ti6 = new TreeItem<>("Unten2");
-			TreeItem<String> ti7 = new TreeItem<>("Auch Unten2");
+			TreeItem<String> ti5 = new TreeItem<>("Fische");
+			TreeItem<String> ti6 = new TreeItem<>("Aal");
+			TreeItem<String> ti7 = new TreeItem<>("Makrele");
+			TreeItem<String> ti8 = new TreeItem<>("Seelachs");
 			
 			
 			TreeView<String> tv = new TreeView<>(ti);
 			ti.getChildren().addAll(ti2,ti5);
-			ti2.getChildren().addAll(ti3,ti4);
-			ti5.getChildren().addAll(ti6,ti7);
+			ti2.getChildren().addAll(ti3,ti4,ti42);
+			ti5.getChildren().addAll(ti6,ti7,ti8);
 			
 			ti.setExpanded(true);
+			ti2.setExpanded(true);
+			ti5.setExpanded(true);
 			root.getChildren().addAll(tv);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
