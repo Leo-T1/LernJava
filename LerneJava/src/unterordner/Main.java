@@ -38,16 +38,21 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			Tooltip tp = new Tooltip("Buuunnnttt");
-			tp.setStyle("-fx-background-color:blue;");
-			Label label = new Label("hover me");
-			label.setTooltip(new Tooltip("warum machst du das?"));
-			Label label2 = new Label("hover me color");
-			label2.setTooltip(tp);
+			Label lb = new Label("Farbe?");
+			ColorPicker cp = new ColorPicker();
+			
+			cp.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					lb.setTextFill(cp.getValue());
+					lb.setText("yay");
+				}
+				
+			});
 			
 			
-			
-			root.getChildren().addAll(label,label2);
+			root.getChildren().addAll(lb,cp);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
