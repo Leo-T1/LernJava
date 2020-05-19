@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -37,9 +38,14 @@ public class Main extends Application {
 			
 			ListView<String> list = new ListView<String>();
 			Button send = new Button("Send");
-			list.getItems().addAll("1","2","3","4");
+			list.getItems().addAll("1","2","3","4","5","6");
 			list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
+			list.setPrefHeight(100);
+			list.setEditable(true);
+			list.setCellFactory(TextFieldListCell.forListView());
+			
+			
+			
 			send.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
