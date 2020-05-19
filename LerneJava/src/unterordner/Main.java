@@ -38,28 +38,16 @@ public class Main extends Application {
 			VBox root = new VBox();
 			Scene scene = new Scene(root,400,300);
 			
-			
-			TreeItem<String> ti = new TreeItem<>("Tiere");
-			TreeItem<String> ti2 = new TreeItem<>("Vögel");
-			TreeItem<String> ti3 = new TreeItem<>("Amsel");
-			TreeItem<String> ti4 = new TreeItem<>("Blaumeise");
-			TreeItem<String> ti42 = new TreeItem<>("Taube");
-			
-			TreeItem<String> ti5 = new TreeItem<>("Fische");
-			TreeItem<String> ti6 = new TreeItem<>("Aal");
-			TreeItem<String> ti7 = new TreeItem<>("Makrele");
-			TreeItem<String> ti8 = new TreeItem<>("Seelachs");
+			Tooltip tp = new Tooltip("Buuunnnttt");
+			tp.setStyle("-fx-background-color:blue;");
+			Label label = new Label("hover me");
+			label.setTooltip(new Tooltip("warum machst du das?"));
+			Label label2 = new Label("hover me color");
+			label2.setTooltip(tp);
 			
 			
-			TreeView<String> tv = new TreeView<>(ti);
-			ti.getChildren().addAll(ti2,ti5);
-			ti2.getChildren().addAll(ti3,ti4,ti42);
-			ti5.getChildren().addAll(ti6,ti7,ti8);
 			
-			ti.setExpanded(true);
-			ti2.setExpanded(true);
-			ti5.setExpanded(true);
-			root.getChildren().addAll(tv);
+			root.getChildren().addAll(label,label2);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
