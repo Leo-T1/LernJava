@@ -22,6 +22,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.web.HTMLEditor;
 
 
 
@@ -31,28 +32,27 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			VBox root = new VBox();
-			Scene scene = new Scene(root,400,300);
+			Scene scene = new Scene(root,900,700);
 			
-			Label lb = new Label("Farbe?");
-			ColorPicker cp = new ColorPicker();
+			HTMLEditor edit = new HTMLEditor();
 			
-			cp.setOnAction(new EventHandler<ActionEvent>() {
+			Button but = new Button("Send");
+			but.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					lb.setTextFill(cp.getValue());
-					lb.setText("yay");
+					System.out.println(edit.getHtmlText());
 				}
 				
 			});
 			
 			
-			root.getChildren().addAll(lb,cp);
+			root.getChildren().addAll(edit,but);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
