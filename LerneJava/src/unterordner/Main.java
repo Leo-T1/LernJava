@@ -3,11 +3,7 @@ package unterordner;
 
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
 
 import javax.swing.event.ChangeEvent;
 import javafx.beans.value.ChangeListener;
@@ -19,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -42,25 +39,36 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			VBox root = new VBox();
-			Scene scene = new Scene(root,400,300);
 			
-			TextArea ta = new TextArea();
-			Button open = new Button("Datei öffnen");
+			BorderPane bp = new BorderPane();
+			Scene scene = new Scene(bp,400,300);
 			
-			open.setOnAction(new EventHandler<ActionEvent>() {
+			HBox htop = new HBox();
+			
+			Button starter = new Button("Editor starten");
+			Button stopper = new Button("Beenden");
+			htop.getChildren().addAll(starter,stopper);
+			bp.setTop(htop);
+			Label cen = new Label("Wähle eine Aktion");
+			starter.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					FileChooser fc = new FileChooser();
-					File f = fc.showOpenDialog(null);
-					ta.setText(readLine(f));
+					bp.setCenter(new HTMLEditor());
+				}
+				
+			});
+			stopper.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					bp.setCenter(cen);
 				}
 				
 			});
 			
-			
-			root.getChildren().addAll(ta,open);
+			bp.setCenter(cen);
+			bp.setBottom(new Label("Nicht erstellt von Hendrik"));
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
@@ -72,34 +80,6 @@ public class Main extends Application {
 		}
 	}
 	
-	public static String readLine(File f) {
-		
-		try {
-			FileReader fr = new FileReader(f.getAbsolutePath());
-			BufferedReader br = new BufferedReader(fr);
-			String firstLine = null;
-			try {
-				firstLine = br.readLine();
-			} catch (IOException e) {
-				
-			}
-			return firstLine;
-		} catch (FileNotFoundException e) {
-			
-		}
-		
-		return null;
-	}
-
-	public ObservableList<Car> getAllCars(){
-		ObservableList<Car> carList = FXCollections.observableArrayList();
-		carList.add(new Car("Ibiza", "Seat", 110));
-		carList.add(new Car("Ibiza1", "Seat1", 120));
-		carList.add(new Car("Ibiza2", "Seat2", 130));
-		carList.add(new Car("Ibiza3", "Seat3", 140));
-		
-		return carList;
-	}
 	
 	@Override
 	public void init() throws Exception {
