@@ -19,6 +19,7 @@ import javafx.geometry.Insets;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.ScrollEvent;
@@ -40,35 +41,49 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			
-			BorderPane bp = new BorderPane();
-			Scene scene = new Scene(bp,400,300);
+			TabPane root = new TabPane();
+			Scene scene = new Scene(root,400,300);
+			Tab eingabe = new Tab("Eingabe");
+			Tab ausgabe = new Tab("Ausgabe");
+			eingabe.setClosable(false);
+			ausgabe.setClosable(false);
 			
-			HBox htop = new HBox();
-			
-			Button starter = new Button("Editor starten");
-			Button stopper = new Button("Beenden");
-			htop.getChildren().addAll(starter,stopper);
-			bp.setTop(htop);
-			Label cen = new Label("Wähle eine Aktion");
-			starter.setOnAction(new EventHandler<ActionEvent>() {
+			VBox eVBox = new VBox(10);
+			eVBox.getChildren().add(new Label("Satz um den Buchstaben 'a' zu Zählen:"));
+			TextField tf = new TextField();
+			Button send = new Button("Absenden");
+			send.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					bp.setCenter(new HTMLEditor());
-				}
-				
-			});
-			stopper.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent arg0) {
-					bp.setCenter(cen);
+					if(!tf.getText().isBlank()) {
+						int count = 0;
+						for (char c: tf.getText().toCharArray()) {
+							if(c=='a') {
+								count++;
+							}
+						}
+						ausgabe.setContent(new Label("Satz enthält "+count+" mal den Buchstaben 'a'."));
+						root.getSelectionModel().select(ausgabe);
+						System.out.println(count);
+					}else {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Error");
+						alert.setHeaderText("TextField is blank!!!");
+						alert.showAndWait();
+					}
+					
 				}
 				
 			});
 			
-			bp.setCenter(cen);
-			bp.setBottom(new Label("Nicht erstellt von Hendrik"));
+			
+			eVBox.getChildren().addAll(tf,send);
+			
+			eingabe.setContent(eVBox);
+			ausgabe.setContent(new Label("Bitte einen Satz eingeben und über den Button absenden!"));
+			
+			root.getTabs().addAll(eingabe,ausgabe);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
