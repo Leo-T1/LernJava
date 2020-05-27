@@ -24,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
@@ -40,29 +41,34 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			Group root = new Group();
-			Scene scene = new Scene(root,400,350);
+			Scene scene = new Scene(root,350,250);
 
-			Line line1 = new Line(150,80,150,200);
-			line1.setStrokeWidth(5.0);
-			Line line2 = new Line(150,80,100,150);
-			line2.setStrokeWidth(5.0);
-			Line line3 = new Line(150,80,200,150);
-			line3.setStrokeWidth(5.0);
+			Polygon p1 = new Polygon(new double[] {
+					100,100,
+					120,80,
+					140,100,
+					160,80,
+					180,100,
+					200,80,
+					220,100,
+					220,50,
+					250,50,
+					250,100
+			});
+			Polygon p2 = new Polygon(new double[] {
+					100,100,
+					250,100,
+					250,140,
+					100,140
+			});
+			p1.setFill(Color.RED);
+			p1.setStroke(Color.BLACK);
+			p1.setStrokeWidth(2);
+			p2.setStroke(Color.BLACK);
+			p2.setStrokeWidth(3);
 			
-			Line line4 = new Line(150,200,100,280);
-			line4.setStrokeWidth(5.0);
-			Line line5 = new Line(150,200,200,280);
-			line5.setStrokeWidth(5.0);
-			Circle circle1 = new Circle(150,50,30);
-			Ellipse circle2 = new Ellipse(140,40,5,3);
-			Ellipse circle3 = new Ellipse(160,40,5,3);
-			Ellipse circle4 = new Ellipse(150,60,5,7);
-			circle2.setFill(Color.WHITE);
-			circle3.setFill(Color.WHITE);
-			circle4.setFill(Color.WHITE);
 			
-			
-			root.getChildren().addAll(line1,line2,line3,line4,line5,circle1,circle2,circle3,circle4);
+			root.getChildren().addAll(p1,p2);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
