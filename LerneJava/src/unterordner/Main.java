@@ -1,10 +1,6 @@
 package unterordner;
 
 
-
-
-
-
 import javax.swing.event.ChangeEvent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,9 +21,12 @@ import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
-
 
 
 @SuppressWarnings("unused")
@@ -40,50 +39,30 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			
-			TabPane root = new TabPane();
-			Scene scene = new Scene(root,400,300);
-			Tab eingabe = new Tab("Eingabe");
-			Tab ausgabe = new Tab("Ausgabe");
-			eingabe.setClosable(false);
-			ausgabe.setClosable(false);
-			
-			VBox eVBox = new VBox(10);
-			eVBox.getChildren().add(new Label("Satz um den Buchstaben 'a' zu Zählen:"));
-			TextField tf = new TextField();
-			Button send = new Button("Absenden");
-			send.setOnAction(new EventHandler<ActionEvent>() {
+			Group root = new Group();
+			Scene scene = new Scene(root,400,350);
 
-				@Override
-				public void handle(ActionEvent arg0) {
-					if(!tf.getText().isBlank()) {
-						int count = 0;
-						for (char c: tf.getText().toCharArray()) {
-							if(c=='a') {
-								count++;
-							}
-						}
-						ausgabe.setContent(new Label("Satz enthält "+count+" mal den Buchstaben 'a'."));
-						root.getSelectionModel().select(ausgabe);
-						System.out.println(count);
-					}else {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("TextField is blank!!!");
-						alert.showAndWait();
-					}
-					
-				}
-				
-			});
+			Line line1 = new Line(150,80,150,200);
+			line1.setStrokeWidth(5.0);
+			Line line2 = new Line(150,80,100,150);
+			line2.setStrokeWidth(5.0);
+			Line line3 = new Line(150,80,200,150);
+			line3.setStrokeWidth(5.0);
+			
+			Line line4 = new Line(150,200,100,280);
+			line4.setStrokeWidth(5.0);
+			Line line5 = new Line(150,200,200,280);
+			line5.setStrokeWidth(5.0);
+			Circle circle1 = new Circle(150,50,30);
+			Ellipse circle2 = new Ellipse(140,40,5,3);
+			Ellipse circle3 = new Ellipse(160,40,5,3);
+			Ellipse circle4 = new Ellipse(150,60,5,7);
+			circle2.setFill(Color.WHITE);
+			circle3.setFill(Color.WHITE);
+			circle4.setFill(Color.WHITE);
 			
 			
-			eVBox.getChildren().addAll(tf,send);
-			
-			eingabe.setContent(eVBox);
-			ausgabe.setContent(new Label("Bitte einen Satz eingeben und über den Button absenden!"));
-			
-			root.getTabs().addAll(eingabe,ausgabe);
+			root.getChildren().addAll(line1,line2,line3,line4,line5,circle1,circle2,circle3,circle4);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("-");
@@ -94,7 +73,6 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
 	
 	@Override
 	public void init() throws Exception {
