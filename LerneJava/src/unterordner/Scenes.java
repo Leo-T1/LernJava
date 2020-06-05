@@ -1,12 +1,12 @@
 package unterordner;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,25 +16,29 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
 public class Scenes {
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Node sceneBooks() {
-		VBox root = new VBox(10);
-		ListView listView = new ListView();
-		
+	@SuppressWarnings("rawtypes")
+	static ListView listView = new ListView();
+	static ObservableList<String> bookList = FXCollections.observableArrayList();
+	static CheckBox checkUpdate = new CheckBox("Update?");
+	static Slider updateRate = new Slider(1000,6000,3000);
+	
+	@SuppressWarnings("unchecked")
+	public static void updateBooks() {
+		System.out.println("Updated");
 		JSONArray jArray = Books.getBooks();
-		List<String> rows = new ArrayList<String>();
-		
+		bookList.clear();
     	for(Object lines : jArray) {
 			JSONObject line = (JSONObject) lines;
 			String status = "Verfügbar";
@@ -42,12 +46,54 @@ public class Scenes {
 				status = line.get("status").toString();
 			}
 			String input = line.get("name").toString()+" | "+status+" | "+line.get("id").toString();
-			rows.add(input);
-			listView.getItems().add(input);
+			bookList.add(input);
 		}
-    	
+    	listView.setItems(bookList);
+    	listView.scrollTo(listView.getItems().size());
+	}
+	public static Thread getThread(VBox root) {
+		Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+                    	//root.getChildren().remove(0);
+                    	if(checkUpdate.isSelected()) {
+                    		updateBooks();
+                    	}
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep((int)updateRate.getValue());
+                    } catch (InterruptedException ex) {
+                    }
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+		return thread;
+	}
+	
+	public static Node sceneBooks() {
+		VBox root = new VBox(10);
+		updateBooks();
     	Button buttonAddBook = new Button("Buch Hinzufügen");
-    	
+    	updateRate.setShowTickMarks(true);
+        updateRate.setShowTickLabels(true);
+        updateRate.setBlockIncrement(500);
+        updateRate.setMajorTickUnit(500);
+        updateRate.setMinorTickCount(0);
+        updateRate.setSnapToTicks(true);
+        Thread thread = getThread(root);
+        thread.setDaemon(true);
+        thread.start();
     	buttonAddBook.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -118,13 +164,14 @@ public class Scenes {
 				
 				dialog.getDialogPane().setContent(grid);
 				dialog.showAndWait();
-		        
+		        updateBooks();
 			}
     		
     	});
     	
-    	
-        root.getChildren().addAll(listView,buttonAddBook);
+    	HBox sides = new HBox(10);
+    	sides.getChildren().addAll(buttonAddBook,checkUpdate,updateRate);
+        root.getChildren().addAll(listView,sides);
 		
 		return root;
 	}
