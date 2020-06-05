@@ -1,6 +1,8 @@
 package unterordner;
 
 
+import java.util.Scanner;
+
 import javax.swing.event.ChangeEvent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,6 +30,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.web.HTMLEditor;
 
 
@@ -41,62 +44,74 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			VBox set = new VBox(10);
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,450,350);
-			Label l1 = new Label("Höhe:");
-			Label l2 = new Label("Breite:");
-			Label l3 = new Label("Farbe:");
 			
-			Slider setHig = new Slider(10, 250, 10);
-			Slider setWid = new Slider(10, 250, 10);
+			HBox root = new HBox(25);
+			HBox booksRoot = new HBox();
+			Scene home = new Scene(root,615,315);
+			Scene books = new Scene(booksRoot, 615, 315);
+			home.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
-			ColorPicker cp = new ColorPicker();
 			
-			setHig.setValue(100);
-			setWid.setValue(100);
-			cp.setValue(Color.BLACK);
+			//Vertical Boxes
+			VBox leftBox = new VBox(25);
+			VBox rightBox =new VBox(25);
 			
-			Rectangle rec = new Rectangle(0,0,setWid.getValue(),setHig.getValue());
+			//Adding Padding
+			Insets pad = new Insets(20,10,20,10);
+			leftBox.setPadding(pad);
+			rightBox.setPadding(pad);
 			
-			ChangeListener<Number> ch = new ChangeListener<Number>(){
-
-				@Override
-				public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-					Rectangle rec = new Rectangle(0,0,setWid.getValue(),setHig.getValue());
-					rec.setFill(cp.getValue());
-					root.setCenter(rec);
-				}
-				
-			};
-			setHig.valueProperty().addListener(ch);
-			setWid.valueProperty().addListener(ch);
+			//Left Box Buttons
+			Button buttonUsers = new Button("Benutzer");
+			Button buttonBooks = new Button("Bücher"); 
 			
-			cp.setOnAction(new EventHandler<ActionEvent>() {
+			//Right Box Buttons
+			Button buttonBorrow = new Button("Ausleihe");
+			Button buttonHistory =new Button("Verlauf"); 
+			
+			//Height and Width - Buttons
+			int buttonWidth = 700;
+			int buttonHeight = 400;
+			styleButton(buttonUsers, buttonHeight, buttonWidth);
+			styleButton(buttonBooks, buttonHeight, buttonWidth);
+			styleButton(buttonBorrow, buttonHeight, buttonWidth);
+			styleButton(buttonHistory, buttonHeight, buttonWidth);
+			
+			buttonBooks.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					Rectangle rec = new Rectangle(0,0,setWid.getValue(),setHig.getValue());
-					rec.setFill(cp.getValue());
-					root.setCenter(rec);
+					primaryStage.setScene(books);
 				}
 				
 			});
 			
-			set.getChildren().addAll(l1,setHig,l2,setWid,l3,cp);
 			
-			root.setTop(new Label("Rechteck-Konfigurator:"));
-			root.setCenter(rec);
-			root.setLeft(set);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("-");
 			
+			//Add Buttons to Boxes
+			leftBox.getChildren().addAll(buttonUsers,buttonBooks);
+			rightBox.getChildren().addAll(buttonBorrow,buttonHistory);
+			
+			
+			
+			//Add Boxes to root
+			root.getChildren().addAll(leftBox,rightBox);
+			
+			
+			primaryStage.setScene(home);
+			primaryStage.setTitle("Ausleihe");
 			primaryStage.show();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void styleButton(Button button, int buttonHeight, int buttonWidth) {
+		button.setPrefHeight(buttonHeight);
+		button.setPrefWidth(buttonWidth);
+		button.setFont(Font.font("Courier New", FontWeight.BOLD, 25));
+		
 	}
 	
 	@Override
