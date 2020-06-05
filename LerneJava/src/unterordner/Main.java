@@ -44,11 +44,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			
+			BorderPane rootPane = new BorderPane();
 			HBox root = new HBox(25);
-			HBox booksRoot = new HBox();
-			Scene home = new Scene(root,615,315);
-			Scene books = new Scene(booksRoot, 615, 315);
+			Scene home = new Scene(rootPane,615,315);
 			home.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			
@@ -69,6 +67,9 @@ public class Main extends Application {
 			Button buttonBorrow = new Button("Ausleihe");
 			Button buttonHistory =new Button("Verlauf"); 
 			
+			//Back Button
+			Button buttonBack = new Button("<");
+			
 			//Height and Width - Buttons
 			int buttonWidth = 700;
 			int buttonHeight = 400;
@@ -81,11 +82,19 @@ public class Main extends Application {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					primaryStage.setScene(books);
+					rootPane.setCenter(Scenes.sceneBooks());
 				}
 				
 			});
 			
+			buttonBack.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					rootPane.setCenter(root);
+				}
+				
+			});
 			
 			
 			//Add Buttons to Boxes
@@ -95,7 +104,8 @@ public class Main extends Application {
 			
 			//Add Boxes to root
 			root.getChildren().addAll(leftBox,rightBox);
-			
+			rootPane.setCenter(root);
+			rootPane.setTop(buttonBack);
 			
 			primaryStage.setScene(home);
 			primaryStage.setTitle("Ausleihe");
