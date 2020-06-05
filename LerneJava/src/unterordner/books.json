@@ -1,1 +1,6 @@
-[{"name":"Buch Name 2","id":2,"status":"home"},{"name":"Buch Name 3","id":3,"status":"home"},{"name":"Buch Name 11","id":5,"status":"home"},{"name":"Buch Name 11","id":6,"status":"home"},{"name":"Buch Name 12","id":7,"status":"home"},{"name":"Buch Name 4","id":4,"status":"home"}]
+[{"name":"Buch Name 2","id":2,"status":"home"},
+{"name":"Buch Name 3","id":3,"status":"home"},
+{"name":"Buch Name 11","id":5,"status":"home"},
+{"name":"Buch Name 11","id":6,"status":"home"},
+{"name":"Buch Name 12","id":7,"status":"home"},
+{"name":"Buch Name 4","id":4,"status":"home"}]

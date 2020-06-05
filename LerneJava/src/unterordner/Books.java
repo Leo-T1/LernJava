@@ -98,7 +98,6 @@ public class Books {
 		
 	}
 	
-	
 	public static JSONArray getBooks() {
 		try {
 			JSONParser parser = new JSONParser();
