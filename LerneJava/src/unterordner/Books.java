@@ -40,7 +40,11 @@ public class Books {
 				}
 				JSONObject newObj = new JSONObject();
 				newObj.put("name", name);
-				newObj.put("id", count+1);
+				if(useCount) {
+					newObj.put("id", count+1);
+				}else {
+					newObj.put("id", id);
+				}
 				newObj.put("status", status);
 				obj.add(newObj);
 				FileWriter fileW = new FileWriter(file);
@@ -52,6 +56,48 @@ public class Books {
 			e.printStackTrace();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static void deleteBook(String id) {
+		JSONArray obj = getBooks();
+		for(Object line : obj) {
+			JSONObject lines = (JSONObject) line;
+			if(lines.get("id").toString().equals(id)) {
+				System.out.println(lines.values().removeAll(lines.values()));
+				
+				
+				JSONArray list = new JSONArray();     
+				
+				int len = obj.size();
+
+				if (obj != null) { 
+				   for (int i=0;i<len;i++)
+				   { 
+				       Object element = obj.get(i);
+
+				       if (!element.equals("null") && !element.equals("") && !(element.toString().equals("{}"))) {
+				          list.add(element);
+				          System.out.println(element);
+				          System.out.println(element.toString());
+				       }
+				   } 
+				}
+				
+				
+				try {
+					File file = new File("src/unterordner/books.json");
+					FileWriter fileW = new FileWriter(file);
+					fileW.write(list.toJSONString());
+					fileW.flush();
+					fileW.close();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
 	
 	public static JSONArray getBooks() {
 		try {
@@ -66,4 +112,6 @@ public class Books {
 		
 		return null;
 	}
+	
+	
 }
