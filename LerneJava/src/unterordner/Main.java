@@ -36,7 +36,7 @@ import javafx.scene.web.HTMLEditor;
 
 @SuppressWarnings("unused")
 public class Main extends Application {
-	public int degree = 0;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -77,12 +77,13 @@ public class Main extends Application {
 			styleButton(buttonBooks, buttonHeight, buttonWidth);
 			styleButton(buttonBorrow, buttonHeight, buttonWidth);
 			styleButton(buttonHistory, buttonHeight, buttonWidth);
-			
+			buttonBack.setVisible(false);
 			buttonBooks.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
 					rootPane.setCenter(Scenes.sceneBooks());
+					buttonBack.setVisible(true);
 				}
 				
 			});
@@ -92,6 +93,7 @@ public class Main extends Application {
 				@Override
 				public void handle(ActionEvent arg0) {
 					rootPane.setCenter(root);
+					buttonBack.setVisible(false);
 				}
 				
 			});
