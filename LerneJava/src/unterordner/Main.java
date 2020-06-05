@@ -93,7 +93,6 @@ public class Main extends Application {
 			rightBox.getChildren().addAll(buttonBorrow,buttonHistory);
 			
 			
-			
 			//Add Boxes to root
 			root.getChildren().addAll(leftBox,rightBox);
 			
